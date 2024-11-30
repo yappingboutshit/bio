@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>rich hacker bio</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: #0f0;
+            text-align: center;
+            padding: 50px;
+            overflow: hidden;
+        }
+        h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 1.5em;
+            line-height: 1.6;
+        }
+        .matrix {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        canvas {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <h1>about me</h1>
+    <p>
+        monday? hack day. tuesday? hack day. everyday is hack day. i hack everything, online vibes only. 
+        im rich. sexy. handsome. stacks on stacks of cash, gold bars, diamonds, rolex shining brighter than your future.
+        school? nah, who needs it when ur this smart. no rules, just winning.
+    </p>
+    <p>
+        internet is mine. got a pc? hacked. got a server? hacked. got security? i laugh at it. 
+        cash flow crazy, no stopping me. king of hackers, unstoppable. 
+        drip so hard, you cant keep up. i dont type perfect, i type rich. big moves only. 💻🔥🤑
+    </p>
+    <div class="matrix">
+        <canvas id="matrix"></canvas>
+    </div>
+    <script>
+        const canvas = document.getElementById('matrix');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()';
+        const fontSize = 16;
+        const columns = canvas.width / fontSize;
+        const drops = Array(Math.floor(columns)).fill(1);
+
+        function draw() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = '#0f0';
+            ctx.font = `${fontSize}px monospace`;
+
+            drops.forEach((y, x) => {
+                const text = letters.charAt(Math.floor(Math.random() * letters.length));
+                ctx.fillText(text, x * fontSize, y * fontSize);
+
+                if (y * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[x] = 0;
+                }
+                drops[x]++;
+            });
+        }
+
+        setInterval(draw, 50);
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
+</body>
+</html>
